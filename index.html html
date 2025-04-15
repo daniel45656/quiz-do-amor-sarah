@@ -1,0 +1,124 @@
+# quiz-do-amor-sarahquiz-do-amor-sarah/
+├── index.html
+├── style.css
+├── script.js
+├── img/
+│   └── sarah.png   ← (sua foto com ela, substitua aqui)
+└── music/
+    └── amor.mp3    ← (música instrumental que você escolher)
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz do Amor ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="music/amor.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
+
+  <div class="container">
+    <h1>❤️ Quiz do Amor da Sarah ❤️</h1>
+    <div id="quiz">
+      <p id="pergunta"></p>
+      <input type="text" id="resposta" placeholder="Digite sua resposta, dona encrenca..." />
+      <button onclick="verificarResposta()">Responder</button>
+      <p id="mensagem"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff0f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ff3399;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #cc0066;
+}
+
+#mensagem {
+  margin-top: 15px;
+  font-weight: bold;
+}
+const perguntas = [
+  { pergunta: "Onde nos conhecemos?", resposta: "escola" },
+  { pergunta: "Quem falou eu te amo primeiro?", resposta: "eu" },
+  { pergunta: "Quem se interessou primeiro?", resposta: "eu" },
+  { pergunta: "Como chamamos um ao outro?", resposta: "mor" },
+  { pergunta: "Quem é mais legal?", resposta: "eu" },
+  { pergunta: "Quem não tem paciência?", resposta: "vc" }
+];
+
+let indiceAtual = 0;
+
+function mostrarPergunta() {
+  document.getElementById("pergunta").innerText = perguntas[indiceAtual].pergunta;
+  document.getElementById("resposta").value = "";
+  document.getElementById("mensagem").innerText = "";
+}
+
+function verificarResposta() {
+  const respostaUsuario = document.getElementById("resposta").value.toLowerCase().trim();
+  const respostaCerta = perguntas[indiceAtual].resposta.toLowerCase();
+
+  if (respostaUsuario === respostaCerta) {
+    document.getElementById("mensagem").innerText = "Acertou, dona encrenca! 💖";
+    indiceAtual++;
+    if (indiceAtual < perguntas.length) {
+      setTimeout(mostrarPergunta, 1200);
+    } else {
+      mostrarMensagemFinal();
+    }
+  } else {
+    document.getElementById("mensagem").innerText = "Hmm... tenta de novo, amorzinho 😅";
+  }
+}
+
+function mostrarMensagemFinal() {
+  document.getElementById("quiz").innerHTML = `
+    <h2>Você completou o quiz, minha <strong>dona encrenca</strong>! 💘</h2>
+    <img src="img/sarah.png" alt="Foto do casal" style="width: 100%; border-radius: 10px; margin-top: 20px;">
+    <p style="margin-top: 20px; font-size: 18px;">Eu te amo mais que o infinito! 🥰</p>
+  `;
+}
+
+mostrarPergunta();
+
